@@ -1,0 +1,9 @@
+## Interface: 70100
+## Title: myGroupFinderAddon
+## Author: Tankzorx
+## Dependencies:
+## OptDeps: BugSack, !Swatter
+## SavedVariables: mySavedVar
+
+main.lua
+myGroupFinderAddon.lua
