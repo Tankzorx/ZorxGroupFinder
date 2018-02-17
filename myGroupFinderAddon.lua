@@ -1,65 +1,36 @@
-mySavedVar = {
-    -- Variables saved across sessions here.
-}
-
+zorxUtils.logger(5, "running myGroupFinderAddon.lua")
 mainAddonFrame = CreateFrame("Frame")
 mainAddonFrame:RegisterEvent("ADDON_LOADED")
 mainAddonFrame:RegisterEvent("LFG_LIST_SEARCH_RESULTS_RECEIVED");
+utils = {}
 
 
 mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
 	-- When our addon loads, we run the init function.
-	if event == "ADDON_LOADED" then
-		if addon == "myGroupFinderAddon" then
-			mainAddonFrame:Hide();
-			main();
+	if event == "ADDON_LOADED" and addon == "myGroupFinderAddon" then
+
+		if not ZORX_LFGPREFERENCES or true then
+			zorxUtils.logger(4, "Generating default options.")
+			ZORX_LFGPREFERENCES = zorxUtils.createDefaultOptions()
 		end
+		mainAddonFrame:Hide();
+		main();
 	end
 
-	if event == "LFG_LIST_SEARCH_RESULTS_RECEIVED" then
-		if mainAddonFrame:IsVisible() == false then
-			print("Addon frame closed. Not acting on this search.")
-			return
-		end
-		print("THE RESULTS ARE IN");
-		numResults, resultIDTable = C_LFGList.GetSearchResults();
-		for i,v in ipairs(resultIDTable) do
-			-- print(v)
-			local groupID,dungeonID,title,description,voiceComm,ilvlReq,seven,queryNumber,one,two,three,four,leader,six,seven,eight,nine = C_LFGList.GetSearchResultInfo(v);
-			print("groupID " .. groupID)
-			print("dungeonID " .. dungeonID)
-			print("title " .. title)
-			print("description " .. description)
-			print("voiceComm " .. voiceComm)
-			print("ilvlReq " .. ilvlReq)
-			print("Unknown:" ..  tostring(seven))
-			print("query Number? " .. queryNumber)
-			print(one)
-			print(two)
-			print(three)
-			print(four)
-			print("leader: " .. tostring(leader))
-			print(six)
-			print(seven)
-			print(eight)
-			print(nine)
-			print(" ")
-			
-		end
-		print("Results: " .. numResults)
-	end
+
 
 end)
 
 function veryCustomSearch()
-	local lang={}
-	for k,v in pairs(C_LFGList.GetAvailableLanguageSearchFilter()) do 
-		lang[v]=true 
-	end
+	-- local lang={}
+	-- for k,v in pairs(C_LFGList.GetAvailableLanguageSearchFilter()) do 
+	-- 	lang[v]=true 
+	-- end
 	-- C_LFGList.ClearSearchResults()
-	C_LFGList.Search(6, "", 0, 0, lang)
+	-- C_LFGList.Search(6, "15")
 	
 end
+
 
 
 -- http://wow.gamepedia.com/World_of_Warcraft_API
@@ -117,3 +88,37 @@ end
 --     C_LFGList.Search(categoryID, "query" [, filter [, preferredFilters] ]) - This function is not yet documented.
 --     C_LFGList.SetApplicantMemberRole(applicantID, memberIndex, "ROLE") - This function is not yet documented.
 --     C_LFGList.UpdateListing(lfgID, "groupName", itemLevel, "voiceChat", "comment", autoAccept) - This function is not yet documented. 
+
+
+		-- if event == "LFG_LIST_SEARCH_RESULTS_RECEIVED" then
+	-- 	if mainAddonFrame:IsVisible() == false then
+	-- 		print("Addon frame closed. Not acting on this search.")
+	-- 		return
+	-- 	end
+	-- 	print("THE RESULTS ARE IN");
+	-- 	numResults, resultIDTable = C_LFGList.GetSearchResults();
+	-- 	for i,v in ipairs(resultIDTable) do
+	-- 		-- print(v)
+	-- 		local groupID,dungeonID,title,description,voiceComm,ilvlReq,seven,queryNumber,one,two,three,four,leader,six,seven,eight,nine = C_LFGList.GetSearchResultInfo(v);
+	-- 		print("groupID " .. groupID)
+	-- 		print("dungeonID " .. dungeonID)
+	-- 		print("title " .. title)
+	-- 		print("description " .. description)
+	-- 		print("voiceComm " .. voiceComm)
+	-- 		print("ilvlReq " .. ilvlReq)
+	-- 		print("Unknown:" ..  tostring(seven))
+	-- 		print("query Number? " .. queryNumber)
+	-- 		print(one)
+	-- 		print(two)
+	-- 		print(three)
+	-- 		print(four)
+	-- 		print("leader: " .. tostring(leader))
+	-- 		print(six)
+	-- 		print(seven)
+	-- 		print(eight)
+	-- 		print(nine)
+	-- 		print(" ")
+			
+	-- 	end
+	-- 	print("Results: " .. numResults)
+	-- end

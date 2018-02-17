@@ -3,7 +3,11 @@
 ## Author: Tankzorx
 ## Dependencies:
 ## OptDeps: BugSack, !Swatter
-## SavedVariables: mySavedVar
+## SavedVariables: ZORX_LFGPREFERENCES
 
+initVars.lua
+utils.lua
+mainFrame.lua
+filtering.lua
 main.lua
 myGroupFinderAddon.lua
