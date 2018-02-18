@@ -21,7 +21,7 @@ function main()
 	SlashCmdList["ZORX"] = handler;
 
 	setupMainFrame(mainAddonFrame);
-	initFiltering()
+	initFilter()
 end
 
 	-- scrollArea.fillerLabel = scrollArea:CreateFontString("FillerLabel","OVERLAY","GameFontNormal")

@@ -1,4 +1,4 @@
-print("Initiating utils")
+-- print("Initiating utils")
 --[[ LOGGING
 	5 = VERBOSSSEEEE
     4 = INFO
@@ -19,24 +19,26 @@ zorxUtils.logger = function (logLevel, msg)
 		end
 	end
 end
--- utils.logger = logger
-print(zorxUtils.logger)
 
 zorxUtils.createDefaultOptions = function ()
     local opts = {}
-    opts.ilvlReq = nil
+    -- opts.ilvlReq = 960
     -- Name must contain one of the strings below.
     opts.nameMatchers = {
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25"
+        -- "19",
+        -- "16",
+        -- "20",
+        -- "21"
     }
+    opts.minHealerCount = 0
+    opts.maxHealerCount = 5
+    opts.minTankCount = 0
+    opts.maxTankCount = 5
+    opts.minDpsCount = 0
+    opts.maxDpsCount = 5
     opts.descriptionMatchers = {
         -- No default description matchers..
     }
     return opts
 end
+
