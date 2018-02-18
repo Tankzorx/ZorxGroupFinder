@@ -13,7 +13,6 @@ end
 
 local ctx = {}
 
-
 function setupMainFrame(mainFrame)
     mainFrame:SetBackdrop({
         bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", 
@@ -34,13 +33,18 @@ function setupMainFrame(mainFrame)
     closeButton = CreateFrame("button","CloseButton", mainAddonFrame, "UIPanelButtonTemplate")
     closeButton:SetHeight(24)
     closeButton:SetWidth(60)
-    closeButton:SetPoint("BOTTOM", mainAddonFrame, "BOTTOM", width/2 - 25, 0)
+    closeButton:SetPoint("BOTTOM",0, -5)
     closeButton:SetText("Close")
     closeButton:SetScript("OnClick", function(self)
         zorxUtils.logger(4, "Clicked Close")
         -- PlaySound("igMainMenuOption")
         mainAddonFrame:Hide() 
     end)
+
+    local line = mainFrame:CreateTexture()
+    line:SetTexture(1 ,0, 0)
+    line:SetSize(width - 30, 3)
+    line:SetPoint("TOP", 0, -50)
 
     -- Shared font throughout
     font = CreateFont("myFont")
@@ -137,12 +141,90 @@ function setupMainFrame(mainFrame)
 
         editBoxArr[i]:SetScript("OnEnterPressed", function (self)
             ZORX_LFGPREFERENCES[self.optVal] = tonumber(self:GetText())
+            zorxUtils.logger(4, "Setting " .. self.optVal .. " to " .. self:GetText())
             self:ClearFocus()
         end)
     end
 
+    -- NAME MATCHERS
+    local lNameMatchers = mainFrame:CreateFontString(nil, "OVERLAY")
+    lNameMatchers:SetFont(font:GetFont())
+    lNameMatchers:SetTextColor(0.85, 0.85, 0.85, 1)
+    lNameMatchers:SetText("Name Matchers   Create: ")
+    lNameMatchers:SetPoint("TOPLEFT", 15, -57)
+    lNameMatchers:Show()
+
     
-    
+    local ebCreateNameMatcher = CreateFrame("EditBox", nil, mainFrame, "InputBoxTemplate")
+    ebCreateNameMatcher:SetPoint("TOPLEFT", 150, -59)
+    ebCreateNameMatcher:SetFont(font:GetFont())
+    ebCreateNameMatcher:SetAutoFocus(false)
+    ebCreateNameMatcher:SetSize(100, 9)
+    ebCreateNameMatcher:SetMaxLetters(15)
+    ebCreateNameMatcher:SetScript("OnEnterPressed", function (self)
+        if ebCreateNameMatcher:GetText() and string.len(ebCreateNameMatcher:GetText()) > 0 then
+            zorxUtils.logger(4, "Adding name matcher:" .. ebCreateNameMatcher:GetText())
+            ZORX_LFGPREFERENCES.nameMatchers[#ZORX_LFGPREFERENCES.nameMatchers + 1] = ebCreateNameMatcher:GetText()
+            if mainFrame.ebNameMatcherArr then
+                for i=1,#mainFrame.ebNameMatcherArr do
+                    mainFrame.ebNameMatcherArr[i]:Hide()
+                    mainFrame.ebNameMatcherArr[i]:SetParent(nil)
+                end
+            end
+            ebCreateNameMatcher:SetText("")
+            createNameMatcherEBs()
+
+        end
+    end)
+
+
+    function createNameMatcherEBs()
+        local indentCount = 25
+        local yIndentCount = 0
+        local ebArr = {}
+        for i=1,#ZORX_LFGPREFERENCES.nameMatchers do
+            -- TODO: THIS COULD RENDER LONG STRINGS WAY BETTER/PRETTIER.
+            local matchStr =ZORX_LFGPREFERENCES.nameMatchers[i]
+            local strPixelWidth = string.len(matchStr)*6 + 4
+            local ebNameMatcher = CreateFrame("EditBox", nil, mainFrame, "InputBoxTemplate")
+            ebNameMatcher:SetPoint("TOPLEFT", indentCount, -78 - yIndentCount)
+            ebNameMatcher:SetFont(font:GetFont())
+            ebNameMatcher:SetAutoFocus(false)
+            ebNameMatcher:SetHeight(10)
+            ebNameMatcher:SetWidth(strPixelWidth)
+            ebNameMatcher:Insert(matchStr)
+            indentCount = indentCount + strPixelWidth + 10
+            if indentCount > width - 19 then
+                indentCount = 25
+                yIndentCount = yIndentCount + 19
+            end
+
+            ebNameMatcher:SetScript("OnEnterPressed", function (self)
+                table.remove(ZORX_LFGPREFERENCES.nameMatchers, i)
+                if mainFrame.ebNameMatcherArr then
+                    for i=1,#mainFrame.ebNameMatcherArr do
+                        mainFrame.ebNameMatcherArr[i]:Hide()
+                        mainFrame.ebNameMatcherArr[i]:SetParent(nil)
+                    end
+                end
+                createNameMatcherEBs()
+            end)
+            ebArr[#ebArr + 1] = ebNameMatcher
+        end
+        mainFrame.ebNameMatcherArr = ebArr
+        return ebArr
+    end
+    mainFrame:SetScript("OnShow", function (self) 
+        -- If old eb's are found, remove them
+        if mainFrame.ebNameMatcherArr then
+            for i=1,#mainFrame.ebNameMatcherArr do
+                mainFrame.ebNameMatcherArr[i]:Hide()
+                mainFrame.ebNameMatcherArr[i]:SetParent(nil)
+            end
+        end
+        -- Store new edit boxes so they can be removed/updated later.
+        mainFrame.ebNameMatcherArr = createNameMatcherEBs()
+    end)
 
     -- --content frame 
     -- local content = CreateFrame("Frame", nil, ScrollFrame) 

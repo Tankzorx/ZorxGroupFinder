@@ -45,10 +45,10 @@ function checkMemberRolesOk(groupID)
                 end
             end
     if ZORX_LFGPREFERENCES.minTankCount then
-        numTanksOk = numTanks >= ZORX_LFGPREFERENCES.minTankCount
+        numTanksOk = numTanksOk and numTanks >= ZORX_LFGPREFERENCES.minTankCount
     end
     if ZORX_LFGPREFERENCES.maxTankCount then
-        numTanksOk = numTanks <= ZORX_LFGPREFERENCES.maxTankCount
+        numTanksOk = numTanksOk and numTanks <= ZORX_LFGPREFERENCES.maxTankCount
     end
     if ZORX_LFGPREFERENCES.minDpsCount then
         numDpsOk = numDpsOk and numDps >= ZORX_LFGPREFERENCES.minDpsCount
