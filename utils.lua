@@ -36,7 +36,7 @@ zorxUtils.createDefaultOptions = function ()
     opts.maxDpsCount = 5
     opts.descMatchers = {
         -- No default description matchers..
-        "hi"
+        -- "hi"
     }
     opts.filteringEnabled = true
     return opts

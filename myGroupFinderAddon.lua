@@ -6,13 +6,24 @@ utils = {}
 
 
 mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
-    -- When our addon loads, we run the init function.
     if event == "ADDON_LOADED" and addon == "myGroupFinderAddon" then
 
         if not ZORX_LFGPREFERENCES or true then
             zorxUtils.logger(4, "Generating default options.")
             ZORX_LFGPREFERENCES = zorxUtils.createDefaultOptions()
         end
+
+        DungeonFinderButton = CreateFrame("button","DungeonFinderButton", LFGListFrame.SearchPanel, "UIPanelButtonTemplate")
+        DungeonFinderButton:SetHeight(24)
+        DungeonFinderButton:SetWidth(60)
+        DungeonFinderButton:SetPoint("TOP",100, -27)
+        DungeonFinderButton:SetText("ZGF")
+        DungeonFinderButton:SetScript("OnClick", function(self)
+            zorxUtils.logger(4, "Clicked toggle on Group Finder frame")
+            -- PlaySound("igMainMenuOption")
+            toggleMainFrame()
+        end)
+        
         mainAddonFrame:Hide();
         main();
     end
