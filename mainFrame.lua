@@ -226,6 +226,85 @@ function setupMainFrame(mainFrame)
         mainFrame.ebNameMatcherArr = createNameMatcherEBs()
     end)
 
+    -- -- DESC MATCHERS NOT SURE IF NEEDED. KEEP COMMENTED OUT I GUESS.
+    -- local lDescMatchers = mainFrame:CreateFontString(nil, "OVERLAY")
+    -- lDescMatchers:SetFont(font:GetFont())
+    -- lDescMatchers:SetTextColor(0.85, 0.85, 0.85, 1)
+    -- lDescMatchers:SetText("Desc Matchers   Create: ")
+    -- lDescMatchers:SetPoint("TOPLEFT", 15, -117)
+    -- lDescMatchers:Show()
+
+    -- local ebCreateDescMatcher = CreateFrame("EditBox", nil, mainFrame, "InputBoxTemplate")
+    -- ebCreateDescMatcher:SetPoint("TOPLEFT", 150, -117)
+    -- ebCreateDescMatcher:SetFont(font:GetFont())
+    -- ebCreateDescMatcher:SetAutoFocus(false)
+    -- ebCreateDescMatcher:SetSize(100, 9)
+    -- ebCreateDescMatcher:SetMaxLetters(15)
+    -- ebCreateDescMatcher:SetScript("OnEnterPressed", function (self)
+    --     if ebCreateDescMatcher:GetText() and string.len(ebCreateDescMatcher:GetText()) > 0 then
+    --         zorxUtils.logger(4, "Adding Desc matcher:" .. ebCreateDescMatcher:GetText())
+    --         ZORX_LFGPREFERENCES.descMatchers[#ZORX_LFGPREFERENCES.descMatchers + 1] = ebCreateDescMatcher:GetText()
+    --         if mainFrame.ebDescMatcherArr then
+    --             for i=1,#mainFrame.ebDescMatcherArr do
+    --                 mainFrame.ebDescMatcherArr[i]:Hide()
+    --                 mainFrame.ebDescMatcherArr[i]:SetParent(nil)
+    --             end
+    --         end
+    --         ebCreateDescMatcher:SetText("")
+    --         createDescMatcherEBs()
+
+    --     end
+    -- end)
+
+    -- function createDescMatcherEBs()
+    --     local indentCount = 25
+    --     local yIndentCount = 0
+    --     local ebArr = {}
+    --     for i=1,#ZORX_LFGPREFERENCES.descMatchers do
+    --         -- TODO: THIS COULD RENDER LONG STRINGS WAY BETTER/PRETTIER.
+    --         local matchStr =ZORX_LFGPREFERENCES.descMatchers[i]
+    --         local strPixelWidth = string.len(matchStr)*6 + 4
+    --         local ebDescMatcher = CreateFrame("EditBox", nil, mainFrame, "InputBoxTemplate")
+    --         ebDescMatcher:SetPoint("TOPLEFT", indentCount, -135 - yIndentCount)
+    --         ebDescMatcher:SetFont(font:GetFont())
+    --         ebDescMatcher:SetAutoFocus(false)
+    --         ebDescMatcher:SetHeight(10)
+    --         ebDescMatcher:SetWidth(strPixelWidth)
+    --         ebDescMatcher:Insert(matchStr)
+    --         indentCount = indentCount + strPixelWidth + 10
+    --         if indentCount > width - 19 then
+    --             indentCount = 25
+    --             yIndentCount = yIndentCount + 19
+    --         end
+
+    --         ebDescMatcher:SetScript("OnEnterPressed", function (self)
+    --             table.remove(ZORX_LFGPREFERENCES.descMatchers, i)
+    --             if mainFrame.ebDescMatcherArr then
+    --                 for i=1,#mainFrame.ebDescMatcherArr do
+    --                     mainFrame.ebDescMatcherArr[i]:Hide()
+    --                     mainFrame.ebDescMatcherArr[i]:SetParent(nil)
+    --                 end
+    --             end
+    --             createDescMatcherEBs()
+    --         end)
+    --         ebArr[#ebArr + 1] = ebDescMatcher
+    --     end
+    --     mainFrame.ebDescMatcherArr = ebArr
+    --     return ebArr
+    -- end
+    -- mainFrame:SetScript("OnShow", function (self) 
+    --     -- If old eb's are found, remove them
+    --     if mainFrame.ebDescMatcherArr then
+    --         for i=1,#mainFrame.ebDescMatcherArr do
+    --             mainFrame.ebDescMatcherArr[i]:Hide()
+    --             mainFrame.ebDescMatcherArr[i]:SetParent(nil)
+    --         end
+    --     end
+    --     -- Store new edit boxes so they can be removed/updated later.
+    --     mainFrame.ebDescMatcherArr = createDescMatcherEBs()
+    -- end)
+    -- -- DESC MATCHERS END
+
     -- --content frame 
     -- local content = CreateFrame("Frame", nil, ScrollFrame) 
     -- content:SetSize(660, 1000) 

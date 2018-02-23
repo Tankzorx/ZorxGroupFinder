@@ -9,7 +9,26 @@ function checkNameOk(name)
         local nameMatchers = ZORX_LFGPREFERENCES.nameMatchers
         local foundMatch = false
         for i = #nameMatchers, 1, -1 do
-            if string.find(name, nameMatchers[i]) then
+            if string.find(name:lower(), nameMatchers[i]:lower()) then
+                foundMatch = true
+            end
+        end
+        return foundMatch
+    else
+        return true
+    end
+end
+
+-- Returns true if any nameMatcher matches group title
+function checkDescOk(desc)
+    -- Filter based on group name
+    if (ZORX_LFGPREFERENCES.descMatchers and
+        #ZORX_LFGPREFERENCES.descMatchers > 0)
+    then
+        local descMatchers = ZORX_LFGPREFERENCES.descMatchers
+        local foundMatch = false
+        for i = #descMatchers, 1, -1 do
+            if string.find(desc, descMatchers[i]) then
                 foundMatch = true
             end
         end
@@ -83,6 +102,7 @@ function initFilter()
             local id, t, name, description, voiceChat, ilvl, age, _, _, _, _, _, numMembers = GetSearchResultInfo(results[i])
             local shouldRemove = false
             shouldRemove = shouldRemove or (not checkNameOk(name))
+            shouldRemove = shouldRemove or (not checkDescOk(description))
             shouldRemove = shouldRemove or (not checkIlvlOk(ilvl))
             shouldRemove = shouldRemove or (not checkMemberRolesOk(id))
             if shouldRemove then

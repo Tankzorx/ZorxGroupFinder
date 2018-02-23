@@ -25,8 +25,8 @@ zorxUtils.createDefaultOptions = function ()
     -- opts.ilvlReq = 960
     -- Name must contain one of the strings below.
     opts.nameMatchers = {
-        "16",
-        "21"
+        -- "16",
+        -- "21"
     }
     opts.minHealerCount = 0
     opts.maxHealerCount = 5
@@ -34,8 +34,9 @@ zorxUtils.createDefaultOptions = function ()
     opts.maxTankCount = 5
     opts.minDpsCount = 0
     opts.maxDpsCount = 5
-    opts.descriptionMatchers = {
+    opts.descMatchers = {
         -- No default description matchers..
+        "hi"
     }
     opts.filteringEnabled = true
     return opts

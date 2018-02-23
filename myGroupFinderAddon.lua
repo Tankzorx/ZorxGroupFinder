@@ -9,7 +9,7 @@ mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
     -- When our addon loads, we run the init function.
     if event == "ADDON_LOADED" and addon == "myGroupFinderAddon" then
 
-        if not ZORX_LFGPREFERENCES then
+        if not ZORX_LFGPREFERENCES or true then
             zorxUtils.logger(4, "Generating default options.")
             ZORX_LFGPREFERENCES = zorxUtils.createDefaultOptions()
         end
