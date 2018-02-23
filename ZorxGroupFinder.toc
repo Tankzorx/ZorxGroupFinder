@@ -1,5 +1,5 @@
 ## Interface: 70100
-## Title: myGroupFinderAddon
+## Title: ZorxGroupFinder
 ## Author: Tankzorx
 ## Dependencies:
 ## OptDeps: BugSack, !Swatter

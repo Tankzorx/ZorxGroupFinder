@@ -6,7 +6,7 @@ utils = {}
 
 
 mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
-    if event == "ADDON_LOADED" and addon == "myGroupFinderAddon" then
+    if event == "ADDON_LOADED" and addon == "ZorxGroupFinder" then
 
         if not ZORX_LFGPREFERENCES or true then
             zorxUtils.logger(4, "Generating default options.")
