@@ -144,6 +144,12 @@ function setupMainFrame(mainFrame)
             zorxUtils.logger(4, "Setting " .. self.optVal .. " to " .. self:GetText())
             self:ClearFocus()
         end)
+
+        editBoxArr[i]:SetScript("OnEditFocusLost", function (self)
+            ZORX_LFGPREFERENCES[self.optVal] = tonumber(self:GetText())
+            zorxUtils.logger(4, "Setting " .. self.optVal .. " to " .. self:GetText())
+            self:ClearFocus()
+        end)
     end
 
     -- NAME MATCHERS
