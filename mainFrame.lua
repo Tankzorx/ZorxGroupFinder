@@ -1,7 +1,7 @@
 zorxUtils.logger(5, "Parsing main.lua")
 
 -- Toggle main frame visibility
-toggleMainFrame = function()
+toggleMainFrame = function(mainAddonFrame)
     if mainAddonFrame:IsVisible() then
         zorxUtils.logger(4, "hiding frame")
         mainAddonFrame:Hide()
@@ -14,6 +14,9 @@ end
 local ctx = {}
 
 function setupMainFrame(mainFrame)
+
+    
+
     mainFrame:SetBackdrop({
         bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", 
         edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
@@ -30,7 +33,7 @@ function setupMainFrame(mainFrame)
     mainFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
     mainFrame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
     mainFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-    closeButton = CreateFrame("button","CloseButton", mainAddonFrame, "UIPanelButtonTemplate")
+    closeButton = CreateFrame("button","CloseButton", mainFrame, "UIPanelButtonTemplate")
     closeButton:SetHeight(24)
     closeButton:SetWidth(60)
     closeButton:SetPoint("BOTTOM",0, -5)
@@ -38,7 +41,7 @@ function setupMainFrame(mainFrame)
     closeButton:SetScript("OnClick", function(self)
         zorxUtils.logger(4, "Clicked Close")
         -- PlaySound("igMainMenuOption")
-        mainAddonFrame:Hide() 
+        mainFrame:Hide() 
     end)
 
     local line = mainFrame:CreateTexture()

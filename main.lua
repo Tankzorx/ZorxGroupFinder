@@ -1,5 +1,5 @@
 zorxUtils.logger(5, "Parsing main.lua")
-function main()
+function main(mainAddonFrame)
 	-- logger = zorxVar.zorxUtils.logger
 	-- SLASH COMMANDS START
 	SLASH_ZORX1, SLASH_ZORX2 = '/zorx', '/zorrx';
@@ -9,12 +9,12 @@ function main()
 		zorxUtils.logger(5, "Command: " .. command)
 		zorxUtils.logger(5, "Rest: " .. rest)
 		if command == "open" then
-			toggleMainFrame()
+			toggleMainFrame(mainAddonFrame)
 		elseif command == "help" then
 			zorxUtils.logger(4, "Printing help")
 			print("Try /zorx open")
 		else
-			toggleMainFrame()
+			toggleMainFrame(mainAddonFrame)
 		end
 
 	end

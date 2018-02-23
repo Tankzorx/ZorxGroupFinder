@@ -38,7 +38,11 @@ zorxUtils.createDefaultOptions = function ()
         -- No default description matchers..
         -- "hi"
     }
+    opts.addonDisabled = true
     opts.filteringEnabled = true
+    opts.toggleAddon = function ()
+        addonDisabled = not addonDisabled
+    end
     return opts
 end
 

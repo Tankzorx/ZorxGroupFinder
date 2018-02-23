@@ -87,6 +87,7 @@ end
 
 
 function initFilter()
+    
     local GetSearchResults, GetSearchResultInfo = C_LFGList.GetSearchResults, C_LFGList.GetSearchResultInfo
 	local GetApplications, ReportSearchResult = C_LFGList.GetApplications, C_LFGList.ReportSearchResult
     local f = CreateFrame("Frame", nil, PVEFrame)
@@ -94,6 +95,10 @@ function initFilter()
     f:RegisterEvent("LFG_LIST_SEARCH_FAILED")
     local filter = function (self, e)
         -- General idea stolen from the addon "badboy".
+        -- /script ZORX_LFGPREFERENCES.addonDisabled
+        if ZORX_LFGPREFERENCES.addonDisabled then
+            return
+        end
         zorxUtils.logger(4, "Filter func event:" .. e)
 
         local _, results = GetSearchResults()
