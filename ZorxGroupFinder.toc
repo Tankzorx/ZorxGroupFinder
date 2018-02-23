@@ -10,4 +10,4 @@ utils.lua
 mainFrame.lua
 filtering.lua
 main.lua
-myGroupFinderAddon.lua
+ZorxGroupFinder.lua

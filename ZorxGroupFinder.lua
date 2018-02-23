@@ -29,7 +29,7 @@ mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
     end
 
 end)
-
+    
 -- http://wow.gamepedia.com/World_of_Warcraft_API
 -- Check the functions defined on the object C_LFGList
 -- Assumed important functions:
