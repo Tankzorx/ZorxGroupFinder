@@ -40,9 +40,20 @@ zorxUtils.createDefaultOptions = function ()
     }
     opts.addonDisabled = true
     opts.filteringEnabled = true
-    opts.toggleAddon = function ()
-        addonDisabled = not addonDisabled
+    opts.toggleAddon = function()
+        ZORX_LFGPREFERENCES.addonDisabled = not ZORX_LFGPREFERENCES.addonDisabled
+        if ZORX_LFGPREFERENCES.addonDisabled then zorxUtils.logger(4, "Disabled addon") else zorxUtils.logger(4, "Enabled addon") end
     end
     return opts
 end
 
+-- Toggle main frame visibility
+zorxUtils.toggleMainFrame = function(mainAddonFrame)
+    if mainAddonFrame:IsVisible() then
+        zorxUtils.logger(4, "hiding frame")
+        mainAddonFrame:Hide()
+    else
+        zorxUtils.logger(4, "showing frame")
+        mainAddonFrame:Show()
+    end
+end

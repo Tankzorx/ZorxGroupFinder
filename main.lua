@@ -9,12 +9,12 @@ function main(mainAddonFrame)
 		zorxUtils.logger(5, "Command: " .. command)
 		zorxUtils.logger(5, "Rest: " .. rest)
 		if command == "open" then
-			toggleMainFrame(mainAddonFrame)
+			zorxUtils.toggleMainFrame(mainAddonFrame)
 		elseif command == "help" then
 			zorxUtils.logger(4, "Printing help")
 			print("Try /zorx open")
 		else
-			toggleMainFrame(mainAddonFrame)
+			zorxUtils.toggleMainFrame(mainAddonFrame)
 		end
 
 	end

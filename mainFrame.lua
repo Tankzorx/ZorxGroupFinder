@@ -1,21 +1,23 @@
 zorxUtils.logger(5, "Parsing main.lua")
 
--- Toggle main frame visibility
-toggleMainFrame = function(mainAddonFrame)
-    if mainAddonFrame:IsVisible() then
-        zorxUtils.logger(4, "hiding frame")
-        mainAddonFrame:Hide()
-    else
-        zorxUtils.logger(4, "showing frame")
-        mainAddonFrame:Show()
-    end
-end
-
 local ctx = {}
 
 function setupMainFrame(mainFrame)
 
-    
+    toggleAddonCheckBox = CreateFrame("CheckButton","toggleAddonCheckBox", mainFrame, "ChatConfigCheckButtonTemplate")
+    toggleAddonCheckBox:SetHeight(30)
+    toggleAddonCheckBox:SetWidth(30)
+    toggleAddonCheckBox:SetPoint("BOTTOMLEFT",0, 0)
+    toggleAddonCheckBox:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
+    toggleAddonCheckBox:SetScript("OnClick", function(self)
+        zorxUtils.logger(4, "Toggled addon from mainframe.")
+        ZORX_LFGPREFERENCES.toggleAddon()
+        -- ZORX_LFGPREFERENCES.addonDisabled = not ZORX_LFGPREFERENCES.addonDisabled
+        toggleAddonCheckBox:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
+    end)
+    -- Next line is magical. By defining a checkbox with name "s", wow makes a text instance called "sText" to set the text next
+    -- to the checkbox. Smart.
+    toggleAddonCheckBoxText:SetText("Enabled")
 
     mainFrame:SetBackdrop({
         bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", 
@@ -40,7 +42,6 @@ function setupMainFrame(mainFrame)
     closeButton:SetText("Close")
     closeButton:SetScript("OnClick", function(self)
         zorxUtils.logger(4, "Clicked Close")
-        -- PlaySound("igMainMenuOption")
         mainFrame:Hide() 
     end)
 
