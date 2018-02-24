@@ -40,10 +40,6 @@ zorxUtils.createDefaultOptions = function ()
     }
     opts.addonDisabled = true
     opts.filteringEnabled = true
-    opts.toggleAddon = function()
-        ZORX_LFGPREFERENCES.addonDisabled = not ZORX_LFGPREFERENCES.addonDisabled
-        if ZORX_LFGPREFERENCES.addonDisabled then zorxUtils.logger(4, "Disabled addon") else zorxUtils.logger(4, "Enabled addon") end
-    end
     return opts
 end
 
@@ -56,4 +52,9 @@ zorxUtils.toggleMainFrame = function(mainAddonFrame)
         zorxUtils.logger(4, "showing frame")
         mainAddonFrame:Show()
     end
+end
+
+zorxUtils.toggleAddon = function()
+    ZORX_LFGPREFERENCES.addonDisabled = not ZORX_LFGPREFERENCES.addonDisabled
+    if ZORX_LFGPREFERENCES.addonDisabled then zorxUtils.logger(4, "Disabled addon") else zorxUtils.logger(4, "Enabled addon") end
 end

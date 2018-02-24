@@ -6,12 +6,11 @@ utils = {}
 
 mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
     if event == "ADDON_LOADED" and addon == "ZorxGroupFinder" then
-        if not ZORX_LFGPREFERENCES or true then
+        if not ZORX_LFGPREFERENCES then
             zorxUtils.logger(4, "Generating default options.")
             ZORX_LFGPREFERENCES = zorxUtils.createDefaultOptions()
         end
         mainAddonFrame:Hide();
-        main(mainAddonFrame);
 
         DungeonFinderButton = CreateFrame("button","DungeonFinderButton", LFGListFrame.SearchPanel, "UIPanelButtonTemplate")
         DungeonFinderButton:SetHeight(24)
@@ -31,8 +30,12 @@ mainAddonFrame:SetScript("OnEvent", function(self, event, addon)
         toggleAddonOnFinder:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
         toggleAddonOnFinder:SetScript("OnClick", function(self)
             zorxUtils.logger(4, "Clicked toggle addon on group finder frame")
-            ZORX_LFGPREFERENCES.toggleAddon()
+            zorxUtils.toggleAddon()
             toggleAddonOnFinder:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
+            getglobal("toggleAddonCheckBox"):SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
         end)
+        mainAddonFrame.toggleAddonOnFinder = toggleAddonOnFinder
+
+        main(mainAddonFrame);
     end
 end)

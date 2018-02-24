@@ -4,16 +4,17 @@ local ctx = {}
 
 function setupMainFrame(mainFrame)
 
-    toggleAddonCheckBox = CreateFrame("CheckButton","toggleAddonCheckBox", mainFrame, "ChatConfigCheckButtonTemplate")
+    toggleAddonCheckBox = CreateFrame("CheckButton","toggleAddonCheckBox", mainFrame, "UICheckButtonTemplate")
     toggleAddonCheckBox:SetHeight(30)
     toggleAddonCheckBox:SetWidth(30)
     toggleAddonCheckBox:SetPoint("BOTTOMLEFT",0, 0)
     toggleAddonCheckBox:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
     toggleAddonCheckBox:SetScript("OnClick", function(self)
         zorxUtils.logger(4, "Toggled addon from mainframe.")
-        ZORX_LFGPREFERENCES.toggleAddon()
-        -- ZORX_LFGPREFERENCES.addonDisabled = not ZORX_LFGPREFERENCES.addonDisabled
+        zorxUtils.toggleAddon()
         toggleAddonCheckBox:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
+        -- getglobal("toggleAddonOnFinder"):SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
+        mainFrame.toggleAddonOnFinder:SetChecked(not ZORX_LFGPREFERENCES.addonDisabled)
     end)
     -- Next line is magical. By defining a checkbox with name "s", wow makes a text instance called "sText" to set the text next
     -- to the checkbox. Smart.
